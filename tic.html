@@ -1,0 +1,128 @@
+<html>
+    <head><title>Tic Tac Toe </title>
+	<link rel="stylesheet" href="tic.css">
+    </head>
+    <body>
+        <table>
+            <tr>
+                <td><input type="button" id="sqr1" name="sqr1" class="tictac" onClick="squareClick('sqr1')" /></td>
+                <td><input type="button" id="sqr2" name="sqr2" class="tictac" onClick="squareClick('sqr2')" /></td>
+                <td><input type="button" id="sqr3" name="sqr3" class="tictac" onClick="squareClick('sqr3')" /></td>
+            </tr>
+            <tr>
+                <td><input type="button" id="sqr4" name="sqr4" class="tictac" onClick="squareClick('sqr4')" /></td>
+                <td><input type="button" id="sqr5" name="sqr5" class="tictac" onClick="squareClick('sqr5')" /></td>
+                <td><input type="button" id="sqr6" name="sqr6" class="tictac" onClick="squareClick('sqr6')" /></td>
+            </tr>
+            <tr>
+                <td><input type="button" id="sqr7" name="sqr7" class="tictac" onClick="squareClick('sqr7')" /></td>
+                <td><input type="button" id="sqr8" name="sqr8" class="tictac" onClick="squareClick('sqr8')" /></td>
+                <td><input type="button" id="sqr9" name="sqr9" class="tictac" onClick="squareClick('sqr9')" /></td>
+            </tr>
+        </table>
+    </body>
+	<script>
+	var gameOver = false;
+
+	if(confirm("Does X want to go first?") == true)
+	{ 
+		var player = 'X';
+	}
+	else
+	{ 
+		var player = 'O';
+	}
+
+	var squares = new Array();
+	squares[0] = 0;
+	squares[1] = 1;
+	squares[2] = 2;
+	squares[3] = 3;
+	squares[4] = 4;
+	squares[5] = 5;
+	squares[6] = 6;
+	squares[7] = 7;
+	squares[8] = 8;
+
+
+	var winCombinations = [
+		[0, 1, 2],
+		[3, 4, 5],
+		[6, 7, 8],
+		[0, 3, 6],
+		[1, 4, 7],
+		[2, 5, 8],
+		[0, 4, 8],
+		[2, 4, 6]
+	];
+
+	function reset() 
+	{
+		var buttonId;
+		for (var i = 1; i < squares.length; i++)
+		{
+			buttonId = "sqr" + i;
+			document.getElementById(buttonId).value = "";
+		}
+		squares = [];
+		gameOver = false;
+	}
+	
+	function squareClick(square)
+	{   
+  
+		var idElement = document.getElementById(square).value;
+		var parseSquare = ((parseInt(square.substring(3, 4))) - 1);
+		if(idElement === "")
+		{
+			document.getElementById(square).value = player;
+			squares[parseSquare] = player;
+		}
+
+		checkForWinner('X');
+		checkForWinner('O');
+		if(player == 'O')
+			player = 'X';
+		else
+			player = 'O';
+	}
+
+	function playAgain()
+	{
+		var response = confirm("Play again?");
+		if (response == true) 
+		{
+			alert("Let's play!");
+			reset();
+		}
+		else 
+		{
+			alert("Thanks for playing!");
+		}
+	}
+	function checkForWinner(value)
+	{   
+		for(var i = 0; i < winCombinations.length; i++)
+		{
+			if(squares[winCombinations[i][0]] == value && squares[winCombinations[i][1]] == value && squares[winCombinations[i][2]] == value)
+			{
+				alert(value + "won the game!");
+				gameOver = true;
+				
+			}                   
+		}
+
+		if(gameOver == true)
+		{
+    
+			playAgain();
+		}
+  
+		else
+		{
+			return("It's the next player's move!");
+		}
+	}
+	
+	</script>
+</html>

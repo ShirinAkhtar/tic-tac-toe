@@ -1,0 +1,9 @@
+.tictac
+{
+  background:pink;
+  border:#999 2px groove;
+  border-radius: 10px;
+  width:180px;
+  height:180px;
+  font-size:150px;
+}
